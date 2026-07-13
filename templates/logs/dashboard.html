@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <h1>
+        Welcome back,
+        {{ user.username }}
+        👋
+    </h1>
+
+    <p>
+        Here's your learning progress.
+    </p>
+
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <h2>{{ logs_count }}</h2>
+
+        <p>Logs</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2>{{ entries_count }}</h2>
+
+        <p>Entries</p>
+
+    </div>
+
+</div>
+
+<div class="dashboard-section">
+
+    <h2>
+        Recent Logs
+    </h2>
+
+    {% for log in recent_logs %}
+
+        <a class="recent-log"
+           href="{% url 'log' log.id %}">
+
+            {{ log.title }}
+
+        </a>
+
+    {% empty %}
+
+        <p>No logs yet.</p>
+
+    {% endfor %}
+
+</div>
+
+<div class="dashboard-section">
+
+    <h2>
+        Latest Entry
+    </h2>
+
+    {% if latest_entry %}
+
+        <div class="entry-card">
+
+            <div class="entry-date">
+
+                {{ latest_entry.created_at }}
+
+            </div>
+
+            <div class="entry-text">
+
+                {{ latest_entry.text|truncatechars:250 }}
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <p>No entries.</p>
+
+    {% endif %}
+
+</div>
+
+<div class="dashboard-section">
+
+    <h2>Learning Activity</h2>
+
+    <div class="chart-card">
+
+        <canvas id="activityChart"></canvas>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block scripts %}
+
+<script>
+
+const labels = JSON.parse(
+    '{{ chart_labels|escapejs }}'
+);
+
+const values = JSON.parse(
+    '{{ chart_values|escapejs }}'
+);
+
+const ctx =
+document
+.getElementById("activityChart");
+
+new Chart(ctx,{
+
+    type:"line",
+
+    data:{
+
+        labels:labels,
+
+        datasets:[{
+
+            label:"Entries",
+
+            data:values,
+
+            borderColor:"#4f8cff",
+
+            backgroundColor:"rgba(79,140,255,.15)",
+
+            fill:true,
+
+            tension:.4,
+
+            pointRadius:4,
+
+            pointHoverRadius:6,
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+                display:false
+            }
+
+        },
+
+        scales:{
+
+            y:{
+                beginAtZero:true,
+                ticks:{
+                    precision:0
+                }
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

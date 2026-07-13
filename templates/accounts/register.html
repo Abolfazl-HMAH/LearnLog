@@ -1,0 +1,48 @@
+<!-- register.html -->
+
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Start tracking your learning today.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+
+            <p>
+                Already have an account?
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

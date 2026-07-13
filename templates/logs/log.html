@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ log.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>{{ log.title }}</h1>
+
+    <a href="{% url 'edit_log' log.id %}">
+        Edit Log
+    </a>
+
+    <hr>
+    <p>
+        <a href="{% url 'new_entry' log.id %}">
+            + New Entry
+        </a>
+    </p>
+
+    {% if entries %}
+
+        {% for entry in entries %}
+
+        <div class="entry-card">
+
+            <small>
+                {{ entry.created_at }}
+            </small>
+
+            <p>
+                {{ entry.text|linebreaks }}
+            </p>
+
+            <a href="{% url 'edit_entry' entry.id %}">
+                Edit
+            </a>
+
+            <a href="{% url 'delete_entry' entry.id %}">
+                Delete
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <p>No entries yet.</p>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No entries yet.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

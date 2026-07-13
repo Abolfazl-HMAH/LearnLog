@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Logs
+{% endblock %}
+
+{% block content %}
+
+<h1>My Logs</h1>
+
+
+<p>
+    <a href="{% url 'new_log' %}">
+        + New Log
+    </a>
+</p>
+
+{% if logs %}
+
+<ul>
+
+{% for log in logs %}
+
+<li>
+
+<a href="{% url 'log' log.id %}">
+    {{ log.title }}
+</a>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No logs yet.</p>
+
+{% endif %}
+
+{% endblock %}

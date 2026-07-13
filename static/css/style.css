@@ -1,0 +1,41 @@
+@import url("variables.css");
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:Inter,sans-serif;
+
+    min-height:100vh;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+.container-main{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:40px 20px;
+
+}
+
+body{
+
+    background:
+
+    radial-gradient(circle at top left,#1d4ed8 0%,transparent 30%),
+
+    radial-gradient(circle at top right,#7c3aed 0%,transparent 25%),
+
+    var(--bg);
+
+}
