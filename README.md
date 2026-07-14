@@ -23,7 +23,7 @@ A modern learning journal built with Django.
 ## Installation
 
 ```bash
-git clone https://github.com/USERNAME/LearnLog.git
+git clone https://github.com/Abolfazl-HMAH/LearnLog.git
 
 cd LearnLog
 
